@@ -41,9 +41,9 @@ Version: 20160109
         <!--You can also ignore the VLcOption field and it will take the default values-->
 
         <!--You can also ignore the VLcOption field and it will take the default values-->
-        
+        <wpf:VlcPlayer x:Name="Player" VlcOption="{StaticResource VlcOptions}" LibVlcPath="..\..\libvlc" EndBehavior="Nothing" MouseDoubleClick="Player_MouseDoubleClick" Margin="10,20,10,62" />
         <Grid x:Name="allControls">
-            <wpf:VlcPlayer x:Name="Player" VlcOption="{StaticResource VlcOptions}" LibVlcPath="..\..\libvlc" EndBehavior="Nothing" MouseDoubleClick="Player_MouseDoubleClick" Margin="10,20,10,62" />
+            
 
             <DockPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Menu DockPanel.Dock="Top">
@@ -73,6 +73,8 @@ Version: 20160109
                 </ProgressBar.BorderBrush>
             </ProgressBar>
             <Grid x:Name="lowerControls" Background="#FF858282"  HorizontalAlignment="Center" Width="629" Height="40" VerticalAlignment="Bottom" >
+                <CheckBox x:Name="checkBox" Content="Enable Edit Mode" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,10,0,0" Checked="checkBox_Checked"/>
+                
                 <Button  Click="Play_Click" VerticalAlignment="Center" Width="35" Background="#FFD1D1D1" BorderBrush="Black" Foreground="Black" Height="40" Margin="109,0" >
                     <Image x:Name="image" Margin="0,0,0,0" Source="play.png"/>
                 </Button>
@@ -110,6 +112,7 @@ Version: 20160109
             </StackPanel>
 
         </Grid>
+
 
         <!--You can also ignore the VLcOption field and it will take the default values-->
 

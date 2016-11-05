@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using System.IO;
 
+
 namespace Meta.Vlc.Wpf.Sample
 {
     public partial class MainWindow : Window
@@ -245,7 +246,7 @@ namespace Meta.Vlc.Wpf.Sample
         {
             mouseMove = true;
             System.Windows.Input.Mouse.OverrideCursor = null;
-            
+            allControls.Opacity = 1;
         }
 
 
@@ -253,8 +254,10 @@ namespace Meta.Vlc.Wpf.Sample
 
 private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (!mouseMove )
+            if (!mouseMove) { 
                 System.Windows.Input.Mouse.OverrideCursor = System.Windows.Input.Cursors.None;
+                allControls.Opacity = 0;
+            }
             mouseMove = false;
         }
 
@@ -270,6 +273,9 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
             
         }
 
-
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Window1 wbutts = new Window1;
+        }
     }
 }
