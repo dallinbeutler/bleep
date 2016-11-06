@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfApplication2.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication2"
+        mc:Ignorable="d"
+        Title="Window1" Height="680.308" Width="300" MinWidth="300" Left= "1000" Closing="Window_Closing">
+    <Grid>
+
+        <Grid Margin="10,0,10,10" Background="#FFA7FF8D" Height="166" VerticalAlignment="Bottom">
+            <Button x:Name="butMarkStart" Content="mark start" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="266" Height="31" Margin="0,10,0,0" Click="butMarkStart_Click"/>
+            <Button x:Name="butSound" Content="sound" HorizontalAlignment="Center" Margin="10,46,181,46" VerticalAlignment="Center" Width="75" Height="74" Click="butSound_Click"/>
+            <Button x:Name="butSkip" Content="skip" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="75" Height="74" Click="butSkip_Click"/>
+            <Button x:Name="butVideo" Content="video" HorizontalAlignment="Center" Margin="184,46,17,46" VerticalAlignment="Center" Width="65" Height="74" Click="butVideo_Click"/>
+            <Label x:Name="label" Content="seconds from start:" HorizontalAlignment="Left" Margin="22,134,0,0" VerticalAlignment="Bottom"/>
+            <Label x:Name="totalTimeLabel" Content="0" HorizontalAlignment="Left" Margin="133,134,0,0" VerticalAlignment="Bottom"/>
+        </Grid>
+        <ListView x:Name="listView" Margin="10,10,10,181" DataContextChanged="listView_DataContextChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
+
+    </Grid>
+</Window>

@@ -9,13 +9,18 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
 using System.IO;
-
+using System.Xml.Serialization;
+using System.Collections.ObjectModel;
+using WpfApplication2;
 
 namespace Meta.Vlc.Wpf.Sample
 {
     public partial class MainWindow : Window
     {
+        WpfApplication2.EditWindow editWindow;
         Boolean mouseMove = true;
+        //public Boolean inAnEdit = false;//,mute,skip = false;
+        public bool editStateChanged = false;
         //VlcPlayer Player = null; //uncomment if adding the player dynamically or use other control to render video
 
         #region --- Initialization ---
@@ -35,7 +40,7 @@ namespace Meta.Vlc.Wpf.Sample
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
-
+            editWindow = new WpfApplication2.EditWindow();
             //uncomment if adding the player dynamically
 
             //Player = new VlcPlayer();
@@ -231,7 +236,22 @@ namespace Meta.Vlc.Wpf.Sample
 
         private void Player_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (WindowStyle != WindowStyle.None)
+            {
+                this.WindowStyle = WindowStyle.None;
+                this.WindowState = WindowState.Maximized;
+                this.Topmost = true;
+                this.ResizeMode = ResizeMode.NoResize;
+                //Player.AspectRatio = AspectRatio._16_9;
 
+            }
+            else
+            {
+                this.WindowStyle = WindowStyle.SingleBorderWindow;
+                this.WindowState = WindowState.Normal;
+                //Player.AspectRatio = AspectRatio._16_9;
+
+            }
         }
 
         private void Window_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -272,10 +292,118 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
            // ClosedCaptioning.Content = " CC ";
             
         }
-
-        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        private void handleEdit(Boolean activate)
         {
-            Window1 wbutts = new Window1;
+            if (activate)
+            {
+                if (editWindow.inEdit.mute)
+                {
+                    if (!Player.IsMute)
+                        Player.ToggleMute();
+                }
+                else if (editWindow.inEdit.skip)
+                {
+                    Player.Time = editWindow.inEdit.eTime;
+                }
+                else if (editWindow.inEdit.blockVideo)
+                {
+                    Player.Opacity = 0;
+                }
+            }
+            else
+            {
+                if (Player.IsMute)
+                    Player.ToggleMute();
+                if (Player.Opacity == 0)
+                    Player.Opacity = 1;
+            }
+        }
+
+        private void Player_TimeChanged(object sender, EventArgs e)
+        {
+            //editWindow.currentPlayerTime =  Player.VlcMediaPlayer.Time;
+            //TimeSpan Dicks = Player.VlcMediaPlayer.Time;
+            editWindow.currentPlayerTime = Player.VlcMediaPlayer.Time;
+            editWindow.update();
+            if (editWindow.inEdit != null)
+            {
+                
+                handleEdit(true);
+            }
+            else
+                handleEdit(false);
+
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            if (editWindow.IsVisible)
+                editWindow.Hide();
+            else
+                editWindow.Show();
+        }
+
+        //Save Edits!
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Displays a SaveFileDialog so the user can save the Image
+            // assigned to Button2.
+            SaveFileDialog sfd = new SaveFileDialog();
+            //sfd.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
+            sfd.Filter = "text file|*.txt";
+            sfd.Title = "Save your filters";
+
+
+
+            if (sfd.ShowDialog() == true)
+            {
+
+                Stream stream = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+                System.Xml.Serialization.XmlSerializer x = new System.Xml.Serialization.XmlSerializer(editWindow.getList().GetType());
+                x.Serialize(stream, editWindow.getList());
+                stream.Close();
+            }//if
+        }//menuItemClick
+
+        //load edits!
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.Filter = "(*.txt)| *.txt";
+            ofd.Title = "load your filters";
+            if (ofd.ShowDialog() == true)
+            {
+                XmlSerializer mySerializer = new XmlSerializer(typeof(ObservableCollection<Edit>));
+                FileStream myFileStream = new FileStream(ofd.FileName, FileMode.Open);
+                editWindow.editList = (ObservableCollection<Edit>)mySerializer.Deserialize(myFileStream);
+                
+            }
+            else
+            {
+
+            }
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.Filter = "(*.txt)| *.txt";
+            ofd.Title = "load your filters";
+            if (ofd.ShowDialog() == true)
+            {
+                XmlSerializer mySerializer = new XmlSerializer(typeof(ObservableCollection<Edit>));
+                FileStream myFileStream = new FileStream(ofd.FileName, FileMode.Open);
+                foreach (Edit curEdit in (ObservableCollection<Edit>)mySerializer.Deserialize(myFileStream))
+                    editWindow.editList.Add(curEdit);
+                //editWindow.editList.add += (ObservableCollection<Edit>)mySerializer.Deserialize(myFileStream);
+
+            }
+            else
+            {
+
+            }
         }
     }
 }
