@@ -22,7 +22,7 @@ namespace Meta.Vlc.Wpf.Sample
         //public Boolean inAnEdit = false;//,mute,skip = false;
         public bool editStateChanged = false;
         //VlcPlayer Player = null; //uncomment if adding the player dynamically or use other control to render video
-
+        
         #region --- Initialization ---
 
         public MainWindow()
@@ -41,6 +41,8 @@ namespace Meta.Vlc.Wpf.Sample
             dispatcherTimer.Start();
 
             editWindow = new WpfApplication2.EditWindow();
+            
+            
             //uncomment if adding the player dynamically
 
             //Player = new VlcPlayer();
@@ -75,6 +77,7 @@ namespace Meta.Vlc.Wpf.Sample
             Player.Dispose();
             ApiManager.ReleaseAll();
             base.OnClosing(e);
+            Application.Current.Shutdown();
         }
 
         #endregion --- Cleanup ---
@@ -153,13 +156,16 @@ namespace Meta.Vlc.Wpf.Sample
             Player.PauseOrResume();
             if (Player.State == Interop.Media.MediaState.Stopped)
                 Player.Play();
+
         }
+
 
 
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            Player.Stop();
+            Player.Pause();
+            Player.Time = new TimeSpan();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)//fullscreen
@@ -215,6 +221,8 @@ namespace Meta.Vlc.Wpf.Sample
         }
 
         #endregion --- Events ---
+
+
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
@@ -275,7 +283,7 @@ namespace Meta.Vlc.Wpf.Sample
 private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             if (!mouseMove) { 
-                System.Windows.Input.Mouse.OverrideCursor = System.Windows.Input.Cursors.None;
+                //System.Windows.Input.Mouse.OverrideCursor = System.Windows.Input.Cursors.None;
                 allControls.Opacity = 0;
             }
             mouseMove = false;
@@ -303,7 +311,7 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
                 }
                 else if (editWindow.inEdit.skip)
                 {
-                    Player.Time = editWindow.inEdit.eTime;
+                    Player.Time = editWindow.inEdit.end();
                 }
                 else if (editWindow.inEdit.blockVideo)
                 {
@@ -318,11 +326,13 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
                     Player.Opacity = 1;
             }
         }
+        public void setTime(TimeSpan inTime)
+        {
+            Player.Time = inTime;
+        }
 
         private void Player_TimeChanged(object sender, EventArgs e)
         {
-            //editWindow.currentPlayerTime =  Player.VlcMediaPlayer.Time;
-            //TimeSpan Dicks = Player.VlcMediaPlayer.Time;
             editWindow.currentPlayerTime = Player.VlcMediaPlayer.Time;
             editWindow.update();
             if (editWindow.inEdit != null)
@@ -334,7 +344,7 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
                 handleEdit(false);
 
         }
-
+        
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             if (editWindow.IsVisible)
@@ -366,23 +376,9 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
         }//menuItemClick
 
         //load edits!
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void clearEdit_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            ofd.Filter = "(*.txt)| *.txt";
-            ofd.Title = "load your filters";
-            if (ofd.ShowDialog() == true)
-            {
-                XmlSerializer mySerializer = new XmlSerializer(typeof(ObservableCollection<Edit>));
-                FileStream myFileStream = new FileStream(ofd.FileName, FileMode.Open);
-                editWindow.editList = (ObservableCollection<Edit>)mySerializer.Deserialize(myFileStream);
-                
-            }
-            else
-            {
-
-            }
+            editWindow.editList.Clear();
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
@@ -404,6 +400,26 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
             {
 
             }
+        }
+
+        //DVD URL
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void speed_1_0_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender == speed_0_75)
+                Player.Rate = 0.75f;
+            else if (sender == speed_1_0)
+                Player.Rate = 1f;
+            else if (sender == speed_1_25)
+                Player.Rate = 1.25f;
+            else if (sender == speed_1_5)
+                Player.Rate = 1.5f;
+            else if (sender == speed_2_0)
+                Player.Rate = 2f;
         }
     }
 }

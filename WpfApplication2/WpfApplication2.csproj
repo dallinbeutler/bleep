@@ -69,6 +69,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EnumBindingSourceExtension.cs" />
     <Compile Include="myViewModel.cs" />
     <Compile Include="Edit.cs" />
     <Compile Include="EditWindow.xaml.cs">
@@ -81,12 +82,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CustomControl1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomControl1.Designer.cs">
-      <DependentUpon>CustomControl1.cs</DependentUpon>
     </Compile>
     <Compile Include="MainPlayer.xaml.cs">
       <DependentUpon>MainPlayer.xaml</DependentUpon>
