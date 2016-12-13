@@ -333,11 +333,14 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
 
         private void Player_TimeChanged(object sender, EventArgs e)
         {
-            editWindow.currentPlayerTime = Player.VlcMediaPlayer.Time;
-            editWindow.update();
+            if (editWindow != null) { 
+                editWindow.currentPlayerTime = Player.VlcMediaPlayer.Time;
+                editWindow.update();
+            }
+            else 
+                return;
             if (editWindow.inEdit != null)
             {
-                
                 handleEdit(true);
             }
             else
@@ -405,7 +408,7 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
         //DVD URL
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void speed_1_0_Click(object sender, RoutedEventArgs e)

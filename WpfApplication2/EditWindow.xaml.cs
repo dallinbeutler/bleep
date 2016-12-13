@@ -94,11 +94,12 @@ namespace WpfApplication2
 
             foreach (Edit curEdit in editList)
             {
-                if(currentPlayerTime > curEdit.start() && currentPlayerTime < curEdit.end())
-                {
-                    inEdit = curEdit;
-                    return;
-                }
+                if(curEdit.enabled)
+                    if(currentPlayerTime > curEdit.start() && currentPlayerTime < curEdit.end())
+                    {
+                        inEdit = curEdit;
+                        return;
+                    }
                     
             }
             inEdit = null;
@@ -149,7 +150,9 @@ namespace WpfApplication2
 
         private void toggleEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            //((Edit)listView.SelectedItem).enabled = !((Edit)listView.SelectedItem).enabled;
+            if(listView.SelectedIndex >= 0 )
+            editList[listView.SelectedIndex].enabled = !editList[listView.SelectedIndex].enabled;
         }
 
         private void time_min_KeyDown(object sender, KeyEventArgs e)
@@ -179,6 +182,30 @@ namespace WpfApplication2
             myWin.Player.Time = myWin.Player.Time.Add(TimeSpan.FromMilliseconds(200));
             currentPlayerTime = myWin.Player.Time;
             update();
+        }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+            if(listView.SelectedIndex >= 0)
+            editList.RemoveAt(listView.SelectedIndex);
+        }
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+
+        private void contextDelete_Click(object sender, RoutedEventArgs e)
+        {
+            editList.RemoveAt(listView.SelectedIndex);
+        }
+
+        private void contextDisable_Click(object sender, RoutedEventArgs e)
+        {
+            editList[listView.SelectedIndex].enabled = !editList[listView.SelectedIndex].enabled;
+            
+            //((ListViewItem)listView.SelectedItem).Foreground = Brushes.Beige;
         }
     }
 }

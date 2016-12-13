@@ -64,7 +64,7 @@ Version: 20160109
                             <MenuItem x:Name ="Ratio4by3" Header="4:3" Click="AspectRatioSet" />
                             <MenuItem x:Name ="Ratio16by9" Header="16:9" Click="AspectRatioSet"/>
                         </MenuItem>
-                        <MenuItem Header="_PlayBack Speed">
+                        <MenuItem x:Name ="pbSpeed" Header="_PlayBack Speed">
                             <MenuItem x:Name ="speed_0_75" Header="x 0.75" Click="speed_1_0_Click"/>
                             <MenuItem x:Name ="speed_1_0" Header="x 1.0" Click="speed_1_0_Click"/>
                             <MenuItem x:Name ="speed_1_25" Header="x 1.25" Click="speed_1_0_Click"/>

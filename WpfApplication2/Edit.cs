@@ -80,8 +80,8 @@ namespace WpfApplication2
                 s += "video";
             if (this.skip)
                 s += "skip";
-
-            s += "|";
+            if(!enabled)
+            s += "|DISABLED|";
             
             //return ">" + TimeSpan.FromMilliseconds(getStart()).Hours +":" +TimeSpan.FromMilliseconds(getStart()).Minutes + ":" + TimeSpan.FromMilliseconds(getStart()).Seconds + "-" + TimeSpan.FromMilliseconds(getEnd()) + " mute";
             return s;

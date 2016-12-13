@@ -8,14 +8,25 @@
         mc:Ignorable="d"
         Title="Novacado Editor Window" Height="680.308" Width="300" MinWidth="300" Left= "1000" Closing="Window_Closing">
 
+    <Window.CommandBindings>
+        <CommandBinding
+        Command="ApplicationCommands.Delete"
+        CanExecute="CommandBinding_CanExecute"
+        Executed="contextDelete_Click"/>
+        <CommandBinding
+        Command="ApplicationCommands.Cut"
+        CanExecute="CommandBinding_CanExecute"
+        Executed="contextDisable_Click"/>
+    </Window.CommandBindings>
+    
 
     <Grid>
 
         <Grid x:Name="greenGrid" Margin="10,0,10,423" Background="#FFA7FF8D" Height="183" VerticalAlignment="Bottom">
             <Button x:Name="butMarkStart" Content="mark start" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="266" Height="31" Margin="0,10,0,0" Click="butMarkStart_Click"/>
-            <Button x:Name="butSound" Content="sound" HorizontalAlignment="Center" Margin="10,99,187,10" VerticalAlignment="Center" Width="75" Height="74" Click="butSound_Click"/>
-            <Button x:Name="butSkip" Content="skip" HorizontalAlignment="Center" Margin="95,99,102,10" VerticalAlignment="Center" Width="75" Height="74" Click="butSkip_Click"/>
-            <Button x:Name="butVideo" Content="video" HorizontalAlignment="Center" Margin="184,99,23,10" VerticalAlignment="Center" Width="65" Height="74" Click="butVideo_Click"/>
+            <Button x:Name="butSound" Content="sound" HorizontalAlignment="Center" Margin="10,99,202,27" VerticalAlignment="Center" Width="60" Height="60" Click="butSound_Click" BorderThickness="4"/>
+            <Button x:Name="butSkip" Content="skip" HorizontalAlignment="Center" Margin="105,99,107,27" VerticalAlignment="Center" Width="60" Height="60" Click="butSkip_Click" BorderThickness="4"/>
+            <Button x:Name="butVideo" Content="video" HorizontalAlignment="Center" Margin="206,99,10,27" VerticalAlignment="Center" Width="56" Height="60" Click="butVideo_Click" BorderThickness="4"/>
             <Label x:Name="label" Content="seconds" HorizontalAlignment="Left" Margin="196,0,0,113" VerticalAlignment="Bottom"/>
             <Label x:Name="totalTimeLabel" Content="0" HorizontalAlignment="Left" Margin="164,0,0,113" VerticalAlignment="Bottom" RenderTransformOrigin="-7.521,-3.282"/>
             <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:CensorType}}}" SelectedIndex="0"/>
@@ -33,7 +44,17 @@
 
 
         </Grid>
-        <ListView x:Name="listView" Margin="10,231,10,76" DataContextChanged="listView_DataContextChanged">
+        <ListView x:Name="listView" Margin="10,231,10,76" DataContextChanged="listView_DataContextChanged" ContextMenuService.ShowOnDisabled="True">
+            <ListView.ContextMenu>
+                
+                
+                <ContextMenu>
+                    <MenuItem x:Name="contextDelete" Command="ApplicationCommands.Delete">
+                    </MenuItem>
+                    <MenuItem  x:Name="contextDisable" Command="ApplicationCommands.Cut" Header="Disable" >
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -41,7 +62,7 @@
             </ListView.View>
         </ListView>
         <Button x:Name="toggleEdit" Content="Toggle active" HorizontalAlignment="Left" Margin="13,598,0,0" VerticalAlignment="Top" Width="93" Click="toggleEdit_Click"/>
-        <Button x:Name="delete" Content="delete" HorizontalAlignment="Left" Margin="153,598,0,0" VerticalAlignment="Top" Width="93"/>
+        <Button x:Name="delete" Content="delete" HorizontalAlignment="Left" Margin="153,598,0,0" VerticalAlignment="Top" Width="93" Click="delete_Click"/>
 
 
 
