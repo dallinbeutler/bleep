@@ -12,12 +12,17 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Collections.ObjectModel;
 using WpfApplication2;
+using TMDbLib.Client;
+using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Search;
 
 namespace Meta.Vlc.Wpf.Sample
 {
     public partial class MainWindow : Window
     {
         WpfApplication2.EditWindow editWindow;
+        WpfApplication2.Window1 searchWindow;
         Boolean mouseMove = true;
         //public Boolean inAnEdit = false;//,mute,skip = false;
         public bool editStateChanged = false;
@@ -41,8 +46,16 @@ namespace Meta.Vlc.Wpf.Sample
             dispatcherTimer.Start();
 
             editWindow = new WpfApplication2.EditWindow();
-            
-            
+            searchWindow = new WpfApplication2.Window1();
+
+            ////
+            TMDbClient client = new TMDbClient("2b8c6c988082f2afded86703adeccbc8");
+            SearchContainer<SearchMovie> results = client.SearchMovieAsync("007").Result;
+
+            Console.WriteLine($"Got {results.Results.Count:N0} of {results.TotalResults:N0} results");
+            foreach (SearchMovie result in results.Results)
+                Console.WriteLine(result.Title);
+
             //uncomment if adding the player dynamically
 
             //Player = new VlcPlayer();
@@ -296,7 +309,7 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
                 Player.VlcMediaPlayer.Subtitle = -1;
             else
                 Player.VlcMediaPlayer.Subtitle = Player.VlcMediaPlayer.SubtitleCount;
-            ccLabel.FontWeight =FontWeights.UltraBlack;
+            //ccLabel.FontWeight =FontWeights.UltraBlack;
            // ClosedCaptioning.Content = " CC ";
             
         }
@@ -423,6 +436,14 @@ private void dispatcherTimer_Tick(object sender, EventArgs e)
                 Player.Rate = 1.5f;
             else if (sender == speed_2_0)
                 Player.Rate = 2f;
+        }
+
+        private void searchForEditsClick(object sender, RoutedEventArgs e)
+        {
+            if (searchWindow.IsVisible)
+                searchWindow.Hide();
+            else
+                searchWindow.Show();
         }
     }
 }

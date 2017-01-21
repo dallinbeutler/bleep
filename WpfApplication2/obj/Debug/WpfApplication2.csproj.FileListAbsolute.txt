@@ -66,3 +66,9 @@ D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\Wpf
 D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\obj\Debug\WpfApplication2.exe
 D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\obj\Debug\WpfApplication2.pdb
 D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\obj\Debug\WpfApplication2.csprojResolveAssemblyReference.cache
+D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\bin\Debug\Newtonsoft.Json.dll
+D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\bin\Debug\TMDbLib.dll
+D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\bin\Debug\Newtonsoft.Json.xml
+D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\bin\Debug\TMDbLib.pdb
+D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\obj\Debug\Window1.g.cs
+D:\Users\Dallin\Documents\Visual Studio 2015\Projects\WpfApplication2 - Copy\WpfApplication2\obj\Debug\Window1.baml

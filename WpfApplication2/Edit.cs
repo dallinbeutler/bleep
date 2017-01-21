@@ -75,13 +75,14 @@ namespace WpfApplication2
             //s += " - " + t2.Hours.ToString("D2") + ":" + t2.Minutes.ToString("D2") + ":" + t2.Seconds.ToString("D2");
 
             if (this.mute)
-                s += "sound";
+                s += "sound ";
             if (this.blockVideo)
-                s += "video";
+                s += "video ";
             if (this.skip)
-                s += "skip";
+                s += "skip ";
+            s += type.ToString();
             if(!enabled)
-            s += "|DISABLED|";
+            s += " |DISABLED|";
             
             //return ">" + TimeSpan.FromMilliseconds(getStart()).Hours +":" +TimeSpan.FromMilliseconds(getStart()).Minutes + ":" + TimeSpan.FromMilliseconds(getStart()).Seconds + "-" + TimeSpan.FromMilliseconds(getEnd()) + " mute";
             return s;

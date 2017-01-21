@@ -53,10 +53,12 @@ Version: 20160109
                         <MenuItem Header="_Open Link" Click="MenuItem_Click_3"/>
                     </MenuItem>
                     <MenuItem Header="_Edits">
-                        <MenuItem Header="_Toggle Editor View" Click="button1_Click"  />
-                        <MenuItem Header="_Open/Add Edit File" Click="MenuItem_Click_2"  />
+                        <MenuItem Header="_Toggle Editor " Click="button1_Click"  />
+                        <MenuItem Header="_Search Online for Edits" Click="searchForEditsClick"/>
+                        <MenuItem Header="_Open / Add Edits" Click="MenuItem_Click_2"  />
                         <MenuItem Header="_Save Edit File" Click="MenuItem_Click" />
                         <MenuItem Header="_Clear All Edits" Click="clearEdit_Click" />
+
                     </MenuItem>
                     <MenuItem Header="_Settings">
                         <MenuItem Header="_Aspect Ratio">
@@ -72,6 +74,7 @@ Version: 20160109
                             <MenuItem x:Name ="speed_2_0" Header="x 2.0" Click="speed_1_0_Click"/>
                         </MenuItem>
                     </MenuItem>
+
                 </Menu>
 
                 <StackPanel/>
@@ -100,11 +103,12 @@ Version: 20160109
                     <Image x:Name="image" Margin="0,0,0,0" Source="play.png"/>
                 </Button>
 
-                <Button Content="Stop" Click="Stop_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="225,6,369,4" Width="35" Height="30" />
+                <Button Content="Stop" Click="Stop_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="225,6,366,4" Width="38" Height="30" />
                 <Button Content="[ ]" Click="Exit_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontFamily="Symbol" Width="38" Margin="0" />
-                <Button x:Name="ClosedCaptioning" HorizontalAlignment="Right" Margin="0,0,49,0" VerticalAlignment="Bottom" Width="50" Click="ClosedCaptioning_Click" >
-                    <Label x:Name="ccLabel" Content="CC"/>
-                </Button>
+                <Button x:Name="Editor" HorizontalAlignment="Right" Margin="0,0,74,0" VerticalAlignment="Bottom" Width="39" Click="ClosedCaptioning_Click" Height="21" Content="Edits" />
+                <Button x:Name="ClosedCaptioning" HorizontalAlignment="Right" Margin="0,0,38,0" VerticalAlignment="Bottom" Width="36" Click="ClosedCaptioning_Click" Content="CC" Height="21" />
+
+
 
             </Grid>
             <StackPanel Opacity="0.8">
